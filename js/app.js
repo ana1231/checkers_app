@@ -19,6 +19,7 @@ const checkersBoard = [
 /**************** */
 /**************** */
 
+//12 Chips
 const chips =[]
 
 for(i=1;i<13;i++){
@@ -54,16 +55,12 @@ class Player {
     }
 
 
+
 }
 
 
 /**************** */
 /**************** */
-
-
-    
-
-
 
 
 
@@ -77,6 +74,70 @@ const player2 = new Player(2)
 player2.setUpChipAttributes()
 
 console.log(player2)
+
+
+
+
+
+const twoClickStore = [false,false]
+
+storeCheck1 =()=>{
+
+    twoClickStore[0] = true
+    console.log(twoClickStore)
+}
+
+storeCheck2 =()=>{
+
+    twoClickStore[1] = true
+
+    if( twoClickStore[0] && twoClickStore[1]){
+
+        const moveTo = document.getElementById('33')
+        const movingChip = document.getElementById('chip1p2')
+        moveTo.append(movingChip)
+    
+    
+    }
+    console.log(twoClickStore)
+    
+}
+
+// if( twoClickStore[0] && twoClickStore[1]){
+
+//     const moveTo = document.getElementById('33')
+//     const movingChip = document.getElementById('chip1p2')
+//     moveTo.append(moveChip)
+
+
+// }
+
+
+
+document.getElementById('33').addEventListener('click', storeCheck2)
+
+
+
+document.getElementById('chip1p2').addEventListener('click', storeCheck1)
+
+//console.log(document.getElementById('chip1p2').addEventListener('click', nextLocation()))
+
+
+/**************** */
+/**************** */
+
+/*
+Start Game
+
+Player 1 turn
+
+Player 1 clicks chip
+
+Player 1 clicks new location
+
+Chip moves to new location
+
+*/
 
 
 

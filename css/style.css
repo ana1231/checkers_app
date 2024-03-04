@@ -1,0 +1,88 @@
+body{
+
+    background-color: white;
+    /* max-width: 500px; */
+    display: flex;
+    flex-direction: column; /*"The main axis is defined by the flex-direction property, and the cross axis runs perpendicular to it." */
+                            /*https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox*/
+    align-items: center;    /*The align-items property will align the items on the cross axis. */
+                            /*https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox*/
+    justify-content: space-evenly;/*I want the abiltiy to modify my margins (justify-content - determines how things are distributed along the main axis) */
+    border: 1px solid gray; gray line between margin and padding
+    padding: 10px 10px 100px 10px;
+    min-height: 100vh;
+
+
+}
+    /* https://www.w3schools.com/css/css_table.asp */
+
+table{
+    border-collapse: collapse;
+}
+
+td{
+
+    border: 1px solid black;
+    /*Square*/
+        height: 80px;
+        width: 80px;
+    /* https://www.w3schools.com/css/css_table.asp */
+
+}
+
+/* Checkers Pattern on Board */
+/* https://www.w3schools.com/cssref/sel_nth-child.php */
+
+tr:nth-last-of-type(even) .cell:nth-of-type(even){
+    background-color: rgb(191, 245, 191);
+    cursor: pointer;
+  }
+
+  tr:nth-last-of-type(odd) .cell:nth-of-type(odd){
+    background-color: rgb(191, 245, 191);
+    cursor: pointer;
+  }
+
+#chip1p1, #chip2p1, #chip3p1, #chip4p1, 
+#chip5p1, #chip6p1, #chip7p1, #chip8p1, 
+#chip9p1, #chip10p1, #chip11p1, #chip12p1 {
+
+    margin:auto;
+    /* background: rgb(255, 0, 0, 0.7); */
+    background: rgb(145, 208, 229);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    /* border: 1px solid red; */
+    border: 1px solid rgb(69, 185, 224);
+    cursor: pointer;
+
+}
+  
+#chip1p2, #chip2p2, #chip3p2, #chip4p2, 
+#chip5p2, #chip6p2, #chip7p2, #chip8p2, 
+#chip9p2, #chip10p2, #chip11p2, #chip12p2 {
+
+    margin:auto;
+    background: rgb(255, 198, 93);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgb(255, 153, 0);
+    cursor: pointer;
+
+}
+
+
+/*
+
+  https://www.freecodecamp.org/news/css-shapes-explained-how-to-draw-a-circle-triangle-and-more-using-pure-css/
+  
+  #circle {
+    background: lightblue;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+*/

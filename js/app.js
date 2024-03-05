@@ -119,7 +119,9 @@ storeCheck2 =()=>{
 
     console.log(possibleBoardMove2)
     console.log(boardClickID)
+
     twoClickStore[1] = true
+    const movingChip = document.getElementById(`${chipClickID}`)
 
 
     if( twoClickStore[0] && twoClickStore[1] && possibleMoveCheck){
@@ -127,24 +129,28 @@ storeCheck2 =()=>{
         if (possibleBoardMove2 === boardClickID){
            
             const moveTo = document.getElementById(`${possibleBoardMove2}`)
-            const movingChip = document.getElementById(`${chipClickID}`)
+            
             moveTo.append(movingChip)
             movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
 
         }
-
-        if (possibleBoardMove1 === boardClickID){
+        
+        else if (possibleBoardMove1 === boardClickID){
            
             const moveTo = document.getElementById(`${possibleBoardMove1}`)
-            const movingChip = document.getElementById(`${chipClickID}`)
+            
             moveTo.append(movingChip)
             movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
 
+        } else {
+            movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
         }
-
-    
-    
+   
     }
+    else{
+        movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
+    }
+    //movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
     console.log(twoClickStore)
     
 }
@@ -269,9 +275,11 @@ let chipClickID=''
 
 const chipClickInfo =(param) =>{
 
+
     chipClickID = param.target.id
     chipParentID = param.target.parentNode.id
     storeCheck1()
+    param.stopPropagation()
 
 }
 

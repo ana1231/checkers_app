@@ -136,7 +136,7 @@ storeCheck1 =()=>{
 
 
   
-    console.log("storeCheck1")
+    console.log("***********storeCheck1")
     whoseTurn(turn)
     console.log("parentID: " + chipParentID)
     console.log("clickID: " + chipClickID)
@@ -147,16 +147,18 @@ storeCheck1 =()=>{
     movingChip.style.backgroundColor = "rgb(255, 153, 0)"
     console.log("movingChip : ")
     console.log(movingChip)
+    possiblemove()
+    possibleMoveToTake(currentI, currentJ)
     
     if(turn[0]==="1"){
 
         movingChip.style.backgroundColor = "rgb(69, 185, 224)"//blue
-        possibleDownmove()
+        //possibleDownmove()
 
     } else {
 
         movingChip.style.backgroundColor = "rgb(255, 153, 0)"//orange
-        possibleUpmove()
+        //possibleUpmove()
     }
     
     
@@ -167,18 +169,36 @@ storeCheck1 =()=>{
 
 storeCheck2 =()=>{
 
-    console.log("storeChecks2")
+    console.log("***********storeChecks2")
     whoseTurn(turn)
 
-    console.log(possibleBoardMove2)
-    console.log(boardClickID)
+    
+    console.log("boardClickID: "+boardClickID)
+    console.log("possibleBoardMove1: "+possibleBoardMove1)
+    console.log("possibleBoardMove2: "+possibleBoardMove2)
+    console.log("possibleBoardMove3: "+possibleBoardMove3)
+    console.log("possibleBoardMove4: "+possibleBoardMove4)
 
     twoClickStore[1] = true
+    //possiblemove()
+    moveChip()
+    printBoardpieces()
+
+
+    
+}
+
+/**************** */
+/**************** */
+
+moveChip =()=>{
+
+    console.log("***********moveChip")
     const movingChip = document.getElementById(`${chipClickID}`)
 
 
     if( twoClickStore[0] && twoClickStore[1] && possibleMoveCheck){
-
+        /********* */
         if (possibleBoardMove2 === boardClickID){
            
             const moveTo = document.getElementById(`${possibleBoardMove2}`)
@@ -202,6 +222,8 @@ storeCheck2 =()=>{
 
 
         }
+
+        /********* */
         
         else if (possibleBoardMove1 === boardClickID){
            
@@ -210,7 +232,7 @@ storeCheck2 =()=>{
             moveTo.append(movingChip)
             movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
             checkersBoardPlayer[currentI][currentJ]="0"
-            checkersBoardPlayer[northIndex][westIndex]="2"
+            //checkersBoardPlayer[northIndex][westIndex]="2"
 
             if(turn[0]==="1"){
                 checkersBoardPlayer[northIndex][westIndex]="1"
@@ -222,8 +244,70 @@ storeCheck2 =()=>{
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
                 changeTurn(turn)
             }
+        
 
-        } else {
+        } 
+        /********* */
+        /********* */
+
+        else if (possibleBoardMove3 === boardClickID && possibleTakeOpponentCheck){
+    
+            const moveTo = document.getElementById(`${possibleBoardMove3}`)
+            
+            moveTo.append(movingChip)
+            movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
+            checkersBoardPlayer[currentI][currentJ]="0"
+            //checkersBoardPlayer[northIndex][westIndex]="2"
+
+            if(turn[0]==="1"){
+                checkersBoardPlayer[northIndex2][westIndex2]="1"
+                movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
+
+                takeOpponent(opponentNorthIndex,opponentWestIndex)
+                changeTurn(turn)
+                
+
+            } else{
+
+                checkersBoardPlayer[northIndex2][westIndex2]="2"
+                movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
+                takeOpponent(opponentNorthIndex,opponentWestIndex)
+                changeTurn(turn)
+                
+            }
+        
+
+        } 
+        /********* */
+        /********* */
+        
+        else if (possibleBoardMove4 === boardClickID && possibleTakeOpponentCheck){
+           
+            const moveTo = document.getElementById(`${possibleBoardMove4}`)
+            
+            moveTo.append(movingChip)
+            movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
+            checkersBoardPlayer[currentI][currentJ]="0"
+            //checkersBoardPlayer[northIndex][westIndex]="2"
+
+            if(turn[0]==="1"){
+                checkersBoardPlayer[northIndex2][eastIndex2]="1"
+                movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
+                takeOpponent(opponentNorthIndex,opponentEastIndex)
+                changeTurn(turn)
+            } else{
+
+                checkersBoardPlayer[northIndex2][eastIndex2]="2"
+                movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
+                takeOpponent(opponentNorthIndex,opponentEastIndex)
+                changeTurn(turn)
+            }
+        
+
+        } 
+        /********* */        
+
+        else {
             if(turn[0]==="1"){
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
             } else{
@@ -231,6 +315,7 @@ storeCheck2 =()=>{
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
             }
         }
+        /********* */
    
     }
     else{
@@ -241,15 +326,21 @@ storeCheck2 =()=>{
             movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
         }
     }
-    
+
+}
 
 
+/**************** */
+/**************** */
 
-    for(let a = 0; a<8;a++){
-        console.log(a +": " + checkersBoardPlayer[a])
+printBoardpieces=()=>{
+
+    console.log("***********printBoardpieces")
+    for(let i= 0; i <8 ;i++){
+        console.log(i +": " + checkersBoardPlayer[i])
 
     }
-    
+
 }
 
 /**************** */
@@ -259,6 +350,8 @@ let possibleMoveCheck =false
 let possibleTakeOpponentCheck =false
 let possibleBoardMove1 = ''
 let possibleBoardMove2 = ''
+let possibleBoardMove3 = ''
+let possibleBoardMove4 = ''
 let northIndex = ''
 let southIndex = ''
 let westIndex = ''
@@ -269,12 +362,21 @@ let opponentNorthIndex = ''
 let opponentSouthIndex = ''
 let opponentWestIndex = ''
 let opponentEastIndex = ''
+let northIndex2 = ''
+let southIndex2 = ''
+let westIndex2 = ''
+let eastIndex2 = ''
+
+/**************** */
+/**************** */
 
 possibleMoveResetParams =()=>{
     possibleMoveCheck =false
     possibleTakeOpponentCheck =false
     possibleBoardMove1 = ''
     possibleBoardMove2 = ''
+    possibleBoardMove3 = ''
+    possibleBoardMove4 = ''
     northIndex = ''
     southIndex = ''
     westIndex = ''
@@ -285,39 +387,63 @@ possibleMoveResetParams =()=>{
     opponentSouthIndex = ''
     opponentWestIndex = ''
     opponentEastIndex = ''
+    north2Index = ''
+    south2Index = ''
+    west2Index = ''
+    east2Index = ''
 }
 
-const possibleUpmove = () =>{
+/**************** */
+/**************** */
+
+
+
+/**************** */
+/**************** */
+
+
+const possiblemove = () =>{
 
     possibleMoveResetParams()
 
-    console.log("possibleUpmove")
+    console.log("***********possiblemove")
     for (let i=0; i<boardIdLocation.length; i++){
         for (let j=0; j<boardIdLocation[i].length; j++){
 
             if(boardIdLocation[i][j] ===chipParentID){
 
-                northIndex = i-1
+                if(turn[0]==="1"){
+                    northIndex = i+1
+                } else{
+                    northIndex = i-1
+                }
+
+                //northIndex = i-1
                 westIndex = j-1
                 eastIndex = j+1
+
                 currentI = i
                 currentJ = j
                 //console.log(boardIdLocation[i][j])
 
+                console.log("northIndex: " +northIndex)
+                console.log("westIndex: "+westIndex)
+                console.log("eastIndex: "+eastIndex)
+
                 if(northIndex > 0 && northIndex < 8){
 
-                    if(westIndex > 0 && westIndex < 8 && checkersBoardPlayer[northIndex][westIndex] ==="0"){
+                    if(westIndex >= 0 && westIndex < 8 && checkersBoardPlayer[northIndex][westIndex] ==="0"){
 
                         possibleBoardMove1 = boardIdLocation[northIndex][westIndex]
                         possibleMoveCheck = true
-                        console.log(possibleBoardMove1)
+                        console.log("possibleBoardMove1: "+possibleBoardMove1)
                     }
 
-                    if( eastIndex > 0 && eastIndex < 8 && checkersBoardPlayer[northIndex][eastIndex] ==="0"){
+                    if( eastIndex >= 0 && eastIndex < 8 && checkersBoardPlayer[northIndex][eastIndex] ==="0"){
     
                         possibleBoardMove2 = boardIdLocation[northIndex][eastIndex]
                         possibleMoveCheck = true
-                        console.log(possibleBoardMove2)
+                        console.log("possibleBoardMove2: "+possibleBoardMove2)
                     }
     
 
@@ -337,107 +463,196 @@ const possibleUpmove = () =>{
 /**************** */
 /**************** */
 
-const possibleDownmove = () =>{
 
-    possibleMoveResetParams()
-
-    console.log("possibleDownmove")
-    for (let i=0; i<boardIdLocation.length; i++){
-        for (let j=0; j<boardIdLocation[i].length; j++){
-
-            if(boardIdLocation[i][j] ===chipParentID){
-
-                northIndex = i+1
-                westIndex = j-1
-                eastIndex = j+1
-                currentI = i
-                currentJ = j
-                //console.log(boardIdLocation[i][j])
-
-                if(northIndex > 0 && northIndex < 8){
-
-                    if(westIndex > 0 && westIndex < 8 && checkersBoardPlayer[northIndex][westIndex] ==="0"){
-
-                        possibleBoardMove1 = boardIdLocation[northIndex][westIndex]
-                        possibleMoveCheck = true
-                        console.log(possibleBoardMove1)
-                    }
-
-                    if( eastIndex > 0 && eastIndex < 8 && checkersBoardPlayer[northIndex][eastIndex] ==="0"){
-    
-                        possibleBoardMove2 = boardIdLocation[northIndex][eastIndex]
-                        possibleMoveCheck = true
-                        console.log(possibleBoardMove2)
-                    }
-    
-
-                }
-
-
-
-            }
-            
-        }
-
-    }
-   
-}
 
 /**************** */
 /**************** */
 
 
 
-const possibleDownmoveToTake = () =>{
+// const possibleMoveToTake = () =>{
 
-    possibleMoveResetParams()
+//     possibleMoveResetParams()
 
-    console.log("possibleDownmoveToTake")
-    for (let i=0; i<boardIdLocation.length; i++){
-        for (let j=0; j<boardIdLocation[i].length; j++){
+//     console.log("possibleMoveToTake")
+//     for (let i=0; i<boardIdLocation.length; i++){
+//         for (let j=0; j<boardIdLocation[i].length; j++){
 
-            if(boardIdLocation[i][j] ===chipParentID){
+//             if(boardIdLocation[i][j] ===chipParentID){
+
+//                 if(turn[0]==="1"){
+//                     opponentNorthIndex = i+1
+//                     northIndex2 = i+2
+//                 } else{
+//                     //northIndex = i-1
+//                     northIndex2 = i-1
+//                     opponentNorthIndex = i-2
+//                 }
                 
-                opponentNorthIndex = i+1
-                opponentWestIndex = j-1
-                opponentEastIndex = j+1
+                
+//                 opponentWestIndex = j-1
+//                 opponentEastIndex = j+1
 
-                northIndex = i+2
-                westIndex = j-2
-                eastIndex = j+2
+                
+//                 westIndex2 = j-2
+//                 eastIndex2 = j+2
 
-                currentI = i
-                currentJ = j
+//                 currentI = i
+//                 currentJ = j
 
-                //console.log(boardIdLocation[i][j])
+//                 console.log("northIndex2 : " + northIndex2)
+//                 console.log("westIndex2 : " + westIndex2)
+//                 console.log("eastIndex2 : " + eastIndex2)
+//                 console.log("opponentNorthIndex: " +opponentNorthIndex)
+//                 console.log("opponentWestIndex: " +opponentWestIndex)
+//                 console.log("opponentEastIndex: " +opponentEastIndex)
 
-                if(northIndex > 0 && northIndex < 8){
+//                 //console.log(boardIdLocation[i][j])
 
-                    if(westIndex > 0 && westIndex < 8 && checkersBoardPlayer[northIndex][westIndex] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentWestIndex] === opponent[0] ){
+//                 if(northIndex > 0 && northIndex < 8){
 
-                        possibleBoardMove1 = boardIdLocation[northIndex][westIndex]
-                        possibleTakeOpponentCheck =true
-                        console.log(possibleBoardMove1)
-                    }
+//                     if(westIndex2 >= 0 && westIndex2 < 8 && checkersBoardPlayer[northIndex2][westIndex2] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentWestIndex] === opponent[0] ){
 
-                    if( eastIndex > 0 && eastIndex < 8 && checkersBoardPlayer[northIndex][eastIndex] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentEastIndex] === opponent[0] ){
+//                         possibleBoardMove3 = boardIdLocation[northIndex2][westIndex2]
+//                         possibleTakeOpponentCheck =true
+//                         possibleMoveCheck=true
+//                         console.log("possibleBoardMove3: "+possibleBoardMove3)
+//                     }
+
+//                     if( eastIndex >= 0 && eastIndex < 8 && checkersBoardPlayer[northIndex][eastIndex] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentEastIndex] === opponent[0] ){
     
-                        possibleBoardMove2 = boardIdLocation[northIndex][eastIndex]
-                        possibleTakeOpponentCheck =true
-                        console.log(possibleBoardMove2)
-                    }
+//                         possibleBoardMove4 = boardIdLocation[northIndex2][eastIndex2]
+//                         possibleTakeOpponentCheck =true
+//                         possibleMoveCheck=true
+//                         console.log("possibleBoardMove4: "+possibleBoardMove4)
+//                     }
     
 
-                }
+//                 }
 
 
 
-            }
+//             }
             
+//         }
+
+//     }
+   
+// }
+
+
+/**************** */
+/**************** */
+
+
+
+const possibleMoveToTake = (currentI, currentJ ) =>{
+
+    //possibleMoveResetParams()
+
+    console.log("***********possibleMoveToTake")
+    const i=currentI
+    const j=currentJ 
+
+
+    if(boardIdLocation[i][j] ===chipParentID){
+
+        if(turn[0]==="1"){
+            opponentNorthIndex = i+1
+            northIndex2 = i+2
+        } else{
+            //northIndex = i-1
+            opponentNorthIndex = i-1
+            northIndex2 = i-2
+        }
+        
+        
+        opponentWestIndex = j-1
+        opponentEastIndex = j+1
+
+        
+        westIndex2 = j-2
+        eastIndex2 = j+2
+
+        // currentI = i
+        // currentJ = j
+
+        console.log("northIndex2 : " + northIndex2)
+        console.log("westIndex2 : " + westIndex2)
+        console.log("eastIndex2 : " + eastIndex2)
+        console.log("opponentNorthIndex: " +opponentNorthIndex)
+        console.log("opponentWestIndex: " +opponentWestIndex)
+        console.log("opponentEastIndex: " +opponentEastIndex)
+        console.log("opponent: "+ opponent[0])
+
+        //console.log(boardIdLocation[i][j])
+
+        if(northIndex2 > 0 && northIndex2 < 8 && opponentNorthIndex >0 && opponentNorthIndex<8){
+
+            if(westIndex2 >= 0 && westIndex2 < 8 && checkersBoardPlayer[northIndex2][westIndex2] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentWestIndex] === opponent[0] ){
+
+                possibleBoardMove3 = boardIdLocation[northIndex2][westIndex2]
+                possibleTakeOpponentCheck =true
+                possibleMoveCheck=true
+                console.log("possibleBoardMove3: "+possibleBoardMove3)
+            }
+
+            if( eastIndex2 >= 0 && eastIndex2 < 8 && checkersBoardPlayer[northIndex2][eastIndex2] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentEastIndex] === opponent[0] ){
+
+                possibleBoardMove4 = boardIdLocation[northIndex2][eastIndex2]
+                possibleTakeOpponentCheck =true
+                possibleMoveCheck=true
+                console.log("possibleBoardMove4: "+possibleBoardMove4)
+            }
+
+
         }
 
+
+
     }
-   
+
+    console.log("possibleBoardMove1: "+possibleBoardMove1)
+    console.log("possibleBoardMove2: "+possibleBoardMove2)
+    console.log("possibleBoardMove3: "+possibleBoardMove3)
+    console.log("possibleBoardMove4: "+possibleBoardMove4)
+}
+/**************** */
+/**************** */
+
+
+const takeOpponent=(x,y)=>{
+
+    console.log("***********takeOpponent")
+    const opponentLocation = boardIdLocation[x][y]
+    console.log('opponentLocaiton: '+ opponentLocation)
+    const boardID = document.getElementById(`${opponentLocation}`)
+    console.log('boardID: '+ boardID)
+    const deleteChip = boardID.firstElementChild
+    console.log("deleteChip: "+ deleteChip)
+    checkersBoardPlayer[x][y]="0"
+
+    if(turn[0]==="1"){
+
+        const bucket = document.getElementById('p2bucket')
+        bucket.append(deleteChip)
+        
+
+    }
+    else{
+
+        const bucket = document.getElementById('p1bucket')
+        bucket.append(deleteChip)
+
+    }
+
+
+
+    //boardIdLocation[i][j] ===chipParentID
+    //const deleteChip = document.getElementById(`${chipClickID}`)
+
+
+
 }
 
 /**************** */

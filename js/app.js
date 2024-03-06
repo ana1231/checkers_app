@@ -90,17 +90,54 @@ player2.setUpChipAttributes()
 
 console.log(player2)
 
+/**************** */
+/**************** */
 
+let turn = ["2"]
+let opponent = ["1"] 
 
+const whoseTurn=(turn)=>{
 
+    if(turn[0]==="1"){
+        console.log("Player 1 turn")
+    } else{
+        console.log("Player 2 turn")
+    }
 
-const twoClickStore = [false,false]
+}
+
+/**************** */
+/**************** */
+
+const changeTurn = (turn)=>{
+    const header2Tag = document.querySelector('h2')
+
+    if(turn[0]==="1"){
+        turn[0]="2"
+        opponent[0]="1"
+        console.log("Now it's Player 2's turn")
+        header2Tag.innerText="Turn: Player 2"
+        
+    } else{
+        turn[0]="1"
+        opponent[0]="2"
+        console.log("Now it's Player 1's turn")
+        header2Tag.innerText="Turn: Player 1"
+    }
+
+}
+
+/**************** */
+/**************** */
+
+let twoClickStore = [false,false]
 
 storeCheck1 =()=>{
 
 
-    
+  
     console.log("storeCheck1")
+    whoseTurn(turn)
     console.log("parentID: " + chipParentID)
     console.log("clickID: " + chipClickID)
 
@@ -110,12 +147,28 @@ storeCheck1 =()=>{
     movingChip.style.backgroundColor = "rgb(255, 153, 0)"
     console.log("movingChip : ")
     console.log(movingChip)
-    possibleUpmove()
+    
+    if(turn[0]==="1"){
+
+        movingChip.style.backgroundColor = "rgb(69, 185, 224)"//blue
+        possibleDownmove()
+
+    } else {
+
+        movingChip.style.backgroundColor = "rgb(255, 153, 0)"//orange
+        possibleUpmove()
+    }
+    
+    
 }
+
+/**************** */
+/**************** */
 
 storeCheck2 =()=>{
 
     console.log("storeChecks2")
+    whoseTurn(turn)
 
     console.log(possibleBoardMove2)
     console.log(boardClickID)
@@ -131,7 +184,22 @@ storeCheck2 =()=>{
             const moveTo = document.getElementById(`${possibleBoardMove2}`)
             
             moveTo.append(movingChip)
-            movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
+            //movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
+            checkersBoardPlayer[currentI][currentJ]="0"
+            //checkersBoardPlayer[northIndex][eastIndex]="2"
+
+            if(turn[0]==="1"){
+                checkersBoardPlayer[northIndex][eastIndex]="1"
+                movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
+                changeTurn(turn)
+            } else{
+
+                checkersBoardPlayer[northIndex][eastIndex]="2"
+                movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
+                changeTurn(turn)
+            }
+
+
 
         }
         
@@ -141,36 +209,82 @@ storeCheck2 =()=>{
             
             moveTo.append(movingChip)
             movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
+            checkersBoardPlayer[currentI][currentJ]="0"
+            checkersBoardPlayer[northIndex][westIndex]="2"
+
+            if(turn[0]==="1"){
+                checkersBoardPlayer[northIndex][westIndex]="1"
+                movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
+                changeTurn(turn)
+            } else{
+
+                checkersBoardPlayer[northIndex][westIndex]="2"
+                movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
+                changeTurn(turn)
+            }
 
         } else {
-            movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
+            if(turn[0]==="1"){
+                movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
+            } else{
+
+                movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
+            }
         }
    
     }
     else{
-        movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
+        if(turn[0]==="1"){
+            movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
+        } else{
+
+            movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
+        }
     }
-    //movingChip.style.backgroundColor = "rgb(255, 198, 93)" 
-    console.log(twoClickStore)
+    
+
+
+
+    for(let a = 0; a<8;a++){
+        console.log(a +": " + checkersBoardPlayer[a])
+
+    }
     
 }
 
+/**************** */
+/**************** */
+
 let possibleMoveCheck =false
+let possibleTakeOpponentCheck =false
 let possibleBoardMove1 = ''
 let possibleBoardMove2 = ''
 let northIndex = ''
 let southIndex = ''
 let westIndex = ''
 let eastIndex = ''
+let currentI=''
+let currentJ=''
+let opponentNorthIndex = ''
+let opponentSouthIndex = ''
+let opponentWestIndex = ''
+let opponentEastIndex = ''
 
 possibleMoveResetParams =()=>{
     possibleMoveCheck =false
+    possibleTakeOpponentCheck =false
     possibleBoardMove1 = ''
     possibleBoardMove2 = ''
     northIndex = ''
     southIndex = ''
     westIndex = ''
     eastIndex = ''
+    currentI=''
+    currentJ=''
+    opponentNorthIndex = ''
+    opponentSouthIndex = ''
+    opponentWestIndex = ''
+    opponentEastIndex = ''
 }
 
 const possibleUpmove = () =>{
@@ -186,6 +300,8 @@ const possibleUpmove = () =>{
                 northIndex = i-1
                 westIndex = j-1
                 eastIndex = j+1
+                currentI = i
+                currentJ = j
                 //console.log(boardIdLocation[i][j])
 
                 if(northIndex > 0 && northIndex < 8){
@@ -217,6 +333,10 @@ const possibleUpmove = () =>{
 
 }
 
+
+/**************** */
+/**************** */
+
 const possibleDownmove = () =>{
 
     possibleMoveResetParams()
@@ -227,9 +347,11 @@ const possibleDownmove = () =>{
 
             if(boardIdLocation[i][j] ===chipParentID){
 
-                northIndex = i-1
+                northIndex = i+1
                 westIndex = j-1
                 eastIndex = j+1
+                currentI = i
+                currentJ = j
                 //console.log(boardIdLocation[i][j])
 
                 if(northIndex > 0 && northIndex < 8){
@@ -261,8 +383,65 @@ const possibleDownmove = () =>{
    
 }
 
+/**************** */
+/**************** */
 
 
+
+const possibleDownmoveToTake = () =>{
+
+    possibleMoveResetParams()
+
+    console.log("possibleDownmoveToTake")
+    for (let i=0; i<boardIdLocation.length; i++){
+        for (let j=0; j<boardIdLocation[i].length; j++){
+
+            if(boardIdLocation[i][j] ===chipParentID){
+                
+                opponentNorthIndex = i+1
+                opponentWestIndex = j-1
+                opponentEastIndex = j+1
+
+                northIndex = i+2
+                westIndex = j-2
+                eastIndex = j+2
+
+                currentI = i
+                currentJ = j
+
+                //console.log(boardIdLocation[i][j])
+
+                if(northIndex > 0 && northIndex < 8){
+
+                    if(westIndex > 0 && westIndex < 8 && checkersBoardPlayer[northIndex][westIndex] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentWestIndex] === opponent[0] ){
+
+                        possibleBoardMove1 = boardIdLocation[northIndex][westIndex]
+                        possibleTakeOpponentCheck =true
+                        console.log(possibleBoardMove1)
+                    }
+
+                    if( eastIndex > 0 && eastIndex < 8 && checkersBoardPlayer[northIndex][eastIndex] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentEastIndex] === opponent[0] ){
+    
+                        possibleBoardMove2 = boardIdLocation[northIndex][eastIndex]
+                        possibleTakeOpponentCheck =true
+                        console.log(possibleBoardMove2)
+                    }
+    
+
+                }
+
+
+
+            }
+            
+        }
+
+    }
+   
+}
+
+/**************** */
+/**************** */
 /* 
 Site Help: https://rajatamil.medium.com/get-id-of-clicked-element-in-javascript-46f4f688b890
 */
@@ -278,6 +457,7 @@ const chipClickInfo =(param) =>{
 
     chipClickID = param.target.id
     chipParentID = param.target.parentNode.id
+    twoClickStore = [false,false]
     storeCheck1()
     param.stopPropagation()
 

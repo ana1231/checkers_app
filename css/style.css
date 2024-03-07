@@ -48,6 +48,7 @@ tr:nth-last-of-type(even) .cell:nth-of-type(even){
 #chip9p1, #chip10p1, #chip11p1, #chip12p1 {
 
     margin:auto;
+
     /* background: rgb(255, 0, 0, 0.7); */
     background: rgb(145, 208, 229);
     border-radius: 50%;
@@ -56,6 +57,8 @@ tr:nth-last-of-type(even) .cell:nth-of-type(even){
     /* border: 1px solid red; */
     border: 1px solid rgb(69, 185, 224);
     cursor: pointer;
+    text-align: center;
+    
 
 }
   
@@ -64,12 +67,16 @@ tr:nth-last-of-type(even) .cell:nth-of-type(even){
 #chip9p2, #chip10p2, #chip11p2, #chip12p2 {
 
     margin:auto;
+
     background: rgb(255, 198, 93);
     border-radius: 50%;
     width: 60px;
     height: 60px;
     border: 1px solid rgb(255, 153, 0);
     cursor: pointer;
+    text-align: center;
+    
+
 
 }
 
@@ -82,9 +89,11 @@ aside{
 
 h3{
     display: flex;
-    flex-direction: row;
+    flex-direction: wrap;
     justify-content: center;
     border: 1px solid gray; /*gray line between margin and padding*/
+    min-height: 80px;
+
 }
 
 

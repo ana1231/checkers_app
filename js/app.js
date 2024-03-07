@@ -130,6 +130,10 @@ const changeTurn = (turn)=>{
 /**************** */
 /**************** */
 
+
+
+
+
 let twoClickStore = [false,false]
 
 storeCheck1 =()=>{
@@ -137,6 +141,7 @@ storeCheck1 =()=>{
 
   
     console.log("***********storeCheck1")
+
     whoseTurn(turn)
     console.log("parentID: " + chipParentID)
     console.log("clickID: " + chipClickID)
@@ -144,21 +149,22 @@ storeCheck1 =()=>{
     twoClickStore[0] = true
     console.log("twoClickStore : " + twoClickStore)
     const movingChip = document.getElementById(`${chipClickID}`)
-    movingChip.style.backgroundColor = "rgb(255, 153, 0)"
+
     console.log("movingChip : ")
     console.log(movingChip)
     possiblemove()
     possibleMoveToTake(currentI, currentJ)
+    console.log("substring: "+chipClickID[(chipClickID.length)-1])
     
-    if(turn[0]==="1"){
+    if(turn[0]==="1" && chipClickID[(chipClickID.length)-1]==="1"){
 
         movingChip.style.backgroundColor = "rgb(69, 185, 224)"//blue
-        //possibleDownmove()
+        
 
-    } else {
+    } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
         movingChip.style.backgroundColor = "rgb(255, 153, 0)"//orange
-        //possibleUpmove()
+        
     }
     
     
@@ -180,8 +186,10 @@ storeCheck2 =()=>{
     console.log("possibleBoardMove4: "+possibleBoardMove4)
 
     twoClickStore[1] = true
-    //possiblemove()
+    
     moveChip()
+    
+    
     printBoardpieces()
 
 
@@ -208,14 +216,17 @@ moveChip =()=>{
             checkersBoardPlayer[currentI][currentJ]="0"
             //checkersBoardPlayer[northIndex][eastIndex]="2"
 
-            if(turn[0]==="1"){
+            if(turn[0]==="1" && chipClickID[(chipClickID.length)-1]==="1"){
                 checkersBoardPlayer[northIndex][eastIndex]="1"
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
+                isChipKing(northIndex,eastIndex)
                 changeTurn(turn)
-            } else{
+
+            } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
                 checkersBoardPlayer[northIndex][eastIndex]="2"
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
+                isChipKing(northIndex,eastIndex)
                 changeTurn(turn)
             }
 
@@ -234,14 +245,17 @@ moveChip =()=>{
             checkersBoardPlayer[currentI][currentJ]="0"
             //checkersBoardPlayer[northIndex][westIndex]="2"
 
-            if(turn[0]==="1"){
+            if(turn[0]==="1" && chipClickID[(chipClickID.length)-1]==="1"){
                 checkersBoardPlayer[northIndex][westIndex]="1"
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
+                isChipKing(northIndex,westIndex)
                 changeTurn(turn)
-            } else{
+
+            } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
                 checkersBoardPlayer[northIndex][westIndex]="2"
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
+                isChipKing(northIndex,westIndex)
                 changeTurn(turn)
             }
         
@@ -259,19 +273,21 @@ moveChip =()=>{
             checkersBoardPlayer[currentI][currentJ]="0"
             //checkersBoardPlayer[northIndex][westIndex]="2"
 
-            if(turn[0]==="1"){
+            if(turn[0]==="1" && chipClickID[(chipClickID.length)-1]==="1"){
                 checkersBoardPlayer[northIndex2][westIndex2]="1"
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
 
                 takeOpponent(opponentNorthIndex,opponentWestIndex)
+                isChipKing(northIndex2,westIndex2)
                 changeTurn(turn)
                 
 
-            } else{
+            } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
                 checkersBoardPlayer[northIndex2][westIndex2]="2"
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
                 takeOpponent(opponentNorthIndex,opponentWestIndex)
+                isChipKing(northIndex2,westIndex2)
                 changeTurn(turn)
                 
             }
@@ -290,16 +306,18 @@ moveChip =()=>{
             checkersBoardPlayer[currentI][currentJ]="0"
             //checkersBoardPlayer[northIndex][westIndex]="2"
 
-            if(turn[0]==="1"){
+            if(turn[0]==="1" && chipClickID[(chipClickID.length)-1]==="1"){
                 checkersBoardPlayer[northIndex2][eastIndex2]="1"
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
                 takeOpponent(opponentNorthIndex,opponentEastIndex)
+                isChipKing(northIndex2,eastIndex2)
                 changeTurn(turn)
-            } else{
+            } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
                 checkersBoardPlayer[northIndex2][eastIndex2]="2"
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
                 takeOpponent(opponentNorthIndex,opponentEastIndex)
+                isChipKing(northIndex2,eastIndex2)
                 changeTurn(turn)
             }
         
@@ -308,9 +326,11 @@ moveChip =()=>{
         /********* */        
 
         else {
-            if(turn[0]==="1"){
+            if(turn[0]==="1" && chipClickID[(chipClickID.length)-1]==="1"){
+
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
-            } else{
+
+            } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
             }
@@ -319,9 +339,9 @@ moveChip =()=>{
    
     }
     else{
-        if(turn[0]==="1"){
+        if(turn[0]==="1" && chipClickID[(chipClickID.length)-1]==="1"){
             movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
-        } else{
+        } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
             movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
         }
@@ -352,6 +372,10 @@ let possibleBoardMove1 = ''
 let possibleBoardMove2 = ''
 let possibleBoardMove3 = ''
 let possibleBoardMove4 = ''
+let possibleBoardMove5 = ''
+let possibleBoardMove6 = ''
+let possibleBoardMove7 = ''
+let possibleBoardMove8 = ''
 let northIndex = ''
 let southIndex = ''
 let westIndex = ''
@@ -377,6 +401,10 @@ possibleMoveResetParams =()=>{
     possibleBoardMove2 = ''
     possibleBoardMove3 = ''
     possibleBoardMove4 = ''
+    possibleBoardMove5 = ''
+    possibleBoardMove6 = ''
+    possibleBoardMove7 = ''
+    possibleBoardMove8 = ''
     northIndex = ''
     southIndex = ''
     westIndex = ''
@@ -396,10 +424,6 @@ possibleMoveResetParams =()=>{
 /**************** */
 /**************** */
 
-
-
-/**************** */
-/**************** */
 
 
 const possiblemove = () =>{
@@ -430,7 +454,7 @@ const possiblemove = () =>{
                 console.log("westIndex: "+westIndex)
                 console.log("eastIndex: "+eastIndex)
 
-                if(northIndex > 0 && northIndex < 8){
+                if(northIndex >= 0 && northIndex < 8){
 
                     if(westIndex >= 0 && westIndex < 8 && checkersBoardPlayer[northIndex][westIndex] ==="0"){
 
@@ -463,82 +487,69 @@ const possiblemove = () =>{
 /**************** */
 /**************** */
 
-
-
 /**************** */
 /**************** */
 
 
 
-// const possibleMoveToTake = () =>{
+const possiblemoveK = () =>{
 
-//     possibleMoveResetParams()
+    possibleMoveResetParams()
 
-//     console.log("possibleMoveToTake")
-//     for (let i=0; i<boardIdLocation.length; i++){
-//         for (let j=0; j<boardIdLocation[i].length; j++){
+    console.log("***********possiblemoveK")
+    for (let i=0; i<boardIdLocation.length; i++){
+        for (let j=0; j<boardIdLocation[i].length; j++){
 
-//             if(boardIdLocation[i][j] ===chipParentID){
+            if(boardIdLocation[i][j] ===chipParentID){
 
-//                 if(turn[0]==="1"){
-//                     opponentNorthIndex = i+1
-//                     northIndex2 = i+2
-//                 } else{
-//                     //northIndex = i-1
-//                     northIndex2 = i-1
-//                     opponentNorthIndex = i-2
-//                 }
-                
-                
-//                 opponentWestIndex = j-1
-//                 opponentEastIndex = j+1
+                northIndex = i-1
+                southIndex = i+1
 
-                
-//                 westIndex2 = j-2
-//                 eastIndex2 = j+2
+                //northIndex = i-1
+                westIndex = j-1
+                eastIndex = j+1
 
-//                 currentI = i
-//                 currentJ = j
+                currentI = i
+                currentJ = j
+                //console.log(boardIdLocation[i][j])
 
-//                 console.log("northIndex2 : " + northIndex2)
-//                 console.log("westIndex2 : " + westIndex2)
-//                 console.log("eastIndex2 : " + eastIndex2)
-//                 console.log("opponentNorthIndex: " +opponentNorthIndex)
-//                 console.log("opponentWestIndex: " +opponentWestIndex)
-//                 console.log("opponentEastIndex: " +opponentEastIndex)
+                console.log("northIndex: " +northIndex)
+                console.log("southIndex: " +southIndex)
+                console.log("westIndex: "+westIndex)
+                console.log("eastIndex: "+eastIndex)
 
-//                 //console.log(boardIdLocation[i][j])
+                if(northIndex >= 0 && northIndex < 8){
 
-//                 if(northIndex > 0 && northIndex < 8){
+                    if(westIndex >= 0 && westIndex < 8 && checkersBoardPlayer[northIndex][westIndex] ==="0"){
 
-//                     if(westIndex2 >= 0 && westIndex2 < 8 && checkersBoardPlayer[northIndex2][westIndex2] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentWestIndex] === opponent[0] ){
+                        possibleBoardMove1 = boardIdLocation[northIndex][westIndex]
+                        possibleMoveCheck = true
+                        console.log("possibleBoardMove1: "+possibleBoardMove1)
+                    }
 
-//                         possibleBoardMove3 = boardIdLocation[northIndex2][westIndex2]
-//                         possibleTakeOpponentCheck =true
-//                         possibleMoveCheck=true
-//                         console.log("possibleBoardMove3: "+possibleBoardMove3)
-//                     }
-
-//                     if( eastIndex >= 0 && eastIndex < 8 && checkersBoardPlayer[northIndex][eastIndex] ==="0" && checkersBoardPlayer[opponentNorthIndex][opponentEastIndex] === opponent[0] ){
+                    if( eastIndex >= 0 && eastIndex < 8 && checkersBoardPlayer[northIndex][eastIndex] ==="0"){
     
-//                         possibleBoardMove4 = boardIdLocation[northIndex2][eastIndex2]
-//                         possibleTakeOpponentCheck =true
-//                         possibleMoveCheck=true
-//                         console.log("possibleBoardMove4: "+possibleBoardMove4)
-//                     }
+                        possibleBoardMove2 = boardIdLocation[northIndex][eastIndex]
+                        possibleMoveCheck = true
+                        console.log("possibleBoardMove2: "+possibleBoardMove2)
+                    }
     
 
-//                 }
+                }
 
 
 
-//             }
+            }
             
-//         }
+        }
 
-//     }
-   
-// }
+    }
+
+}
+
+
+/**************** */
+/**************** */
 
 
 /**************** */
@@ -620,7 +631,7 @@ const possibleMoveToTake = (currentI, currentJ ) =>{
 /**************** */
 /**************** */
 
-
+/* https://medium.com/codex/how-to-traverse-the-dom-in-javascript-7fece4a7751c */
 const takeOpponent=(x,y)=>{
 
     console.log("***********takeOpponent")
@@ -657,8 +668,53 @@ const takeOpponent=(x,y)=>{
 
 /**************** */
 /**************** */
+
+const isChipKing =(x,y)=>{
+    
+    console.log("***********isChipKing")
+    console.log("x: "+x)
+    console.log("y: "+y)
+    const chipLocation = boardIdLocation[x][y]
+    console.log('chipLocation: '+ chipLocation)
+    const boardID = document.getElementById(`${chipLocation}`)
+    console.log('boardID: '+ boardID)
+    const chipToKing = boardID.firstElementChild
+    console.log("chipToKing: "+ chipToKing)
+ 
+
+    if(turn[0]==="1" && x >6){
+        
+        chipToKing.innerText="K"
+        
+        display("chipToKind:")
+        display(chipToKing)
+
+    }else if(turn[0]==="2" && x < 1){
+
+        chipToKing.innerText="K"
+        
+        display("chipToKind:")
+        display(chipToKing)
+
+    }
+
+
+}
+
+
+
+
+
+
+
+/**************** */
+/**************** */
+
+
+
 /* 
 Site Help: https://rajatamil.medium.com/get-id-of-clicked-element-in-javascript-46f4f688b890
+https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Examples#example_5_event_propagation
 */
 
 /**************** */

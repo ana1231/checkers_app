@@ -180,7 +180,7 @@ const canPlayerMove=(turn)=>{
                 if(chipTest.innerText==="K"){
 
                     possiblemoveK(boardIdLocation[i][j])
-                    possibleMoveToTakeK(currentI, currentJ)
+                    possibleMoveToTakeK(currentI, currentJ,boardIdLocation[i][j])
                     console.log("possibleMoveCheck: " + possibleMoveCheck)
                     console.log("possibleTakeOpponentCheck: "+ possibleTakeOpponentCheck)
 
@@ -193,7 +193,7 @@ const canPlayerMove=(turn)=>{
                 }else{
 
                     possiblemove(boardIdLocation[i][j])
-                    possibleMoveToTake(currentI, currentJ)
+                    possibleMoveToTake(currentI, currentJ, boardIdLocation[i][j])
                     console.log("possibleMoveCheck: " + possibleMoveCheck)
                     console.log("possibleTakeOpponentCheck: "+ possibleTakeOpponentCheck)
 
@@ -271,12 +271,12 @@ storeCheck1 =()=>{
     if(movingChip.innerText==="K"){
 
         possiblemoveK(chipParentID)
-        possibleMoveToTakeK(currentI, currentJ)
+        possibleMoveToTakeK(currentI, currentJ,  chipParentID)
 
     } 
     else {
         possiblemove(chipParentID)
-        possibleMoveToTake(currentI, currentJ)
+        possibleMoveToTake(currentI, currentJ,chipParentID)
 
     }
     
@@ -1062,7 +1062,7 @@ const possiblemoveK = (chipParentID) =>{
 
 
 
-const possibleMoveToTake = (currentI, currentJ ) =>{
+const possibleMoveToTake = (currentI, currentJ,chipParentID ) =>{
 
     //possibleMoveResetParams()
 
@@ -1140,7 +1140,7 @@ const possibleMoveToTake = (currentI, currentJ ) =>{
 
 
 
-const possibleMoveToTakeK = (currentI, currentJ ) =>{
+const possibleMoveToTakeK = (currentI, currentJ,chipParentID ) =>{
 
     //possibleMoveResetParams()
 

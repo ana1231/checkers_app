@@ -8,7 +8,8 @@ body{
     align-items: center;    /*The align-items property will align the items on the cross axis. */
                             /*https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox*/
     justify-content: space-evenly;/*I want the abiltiy to modify my margins (justify-content - determines how things are distributed along the main axis) */
-    border: 1px solid gray; /*gray line between margin and padding*/
+    /* border: 1px solid gray;  */
+    /*gray line between margin and padding*/
     padding: 10px 10px 100px 10px;
     min-height: 100vh;
 
@@ -84,14 +85,16 @@ aside{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    border: 1px solid gray; /*gray line between margin and padding*/
+    /* border: 1px solid gray;  */
+    /*gray line between margin and padding*/
 }
 
 h3{
     display: flex;
     flex-direction: wrap;
     justify-content: center;
-    border: 1px solid gray; /*gray line between margin and padding*/
+    /* border: 1px solid gray;  */
+    /*gray line between margin and padding*/
     min-height: 80px;
 
 }
@@ -101,11 +104,6 @@ h3{
 
   https://www.freecodecamp.org/news/css-shapes-explained-how-to-draw-a-circle-triangle-and-more-using-pure-css/
   
-  #circle {
-    background: lightblue;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-}
+
 
 */

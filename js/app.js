@@ -131,8 +131,121 @@ const changeTurn = (turn)=>{
 /**************** */
 
 
+const winCheck = () =>{
+
+    //can make a move
+    //can still have pieces
+
+    console.log("***********winCheck")
+
+    console.log("****************winCheck")
+    console.log("canPlayerMove(turn): " + canPlayerMove(turn))
+    console.log("areAnypiecesLeft(turn): " + areAnypiecesLeft(turn))
+
+    if (canPlayerMove(turn) && areAnypiecesLeft(turn)){
+
+        console.log("continue to play")
+    } else {
+
+        const header2Tag = document.querySelector('h2')
+        const textString = "Player " + opponent[0] + " Wins!"
+        header2Tag.innerText=textString
+
+    }
 
 
+
+
+}
+
+/**************** */
+/**************** */
+
+const canPlayerMove=(turn)=>{
+
+    console.log("***********canPlayerMove")
+    let answer = false
+
+    for(let i=0;i<8;i++){
+        for(let j=0;j<8;j++){
+
+            if(checkersBoardPlayer[i][j]===turn[0]){
+
+                const boardID = document.getElementById(`${boardIdLocation[i][j]}`)
+                const chipTest = boardID.firstElementChild
+                chipParentID
+                console.log("chip")
+                console.log(chipTest)
+
+                if(chipTest.innerText==="K"){
+
+                    possiblemoveK(boardIdLocation[i][j])
+                    possibleMoveToTakeK(currentI, currentJ)
+                    console.log("possibleMoveCheck: " + possibleMoveCheck)
+                    console.log("possibleTakeOpponentCheck: "+ possibleTakeOpponentCheck)
+
+                    if(possibleMoveCheck || possibleTakeOpponentCheck){
+
+                        answer = true
+
+                    }
+
+                }else{
+
+                    possiblemove(boardIdLocation[i][j])
+                    possibleMoveToTake(currentI, currentJ)
+                    console.log("possibleMoveCheck: " + possibleMoveCheck)
+                    console.log("possibleTakeOpponentCheck: "+ possibleTakeOpponentCheck)
+
+                    if(possibleMoveCheck || possibleTakeOpponentCheck){
+
+                        answer = true
+
+                    }
+
+                }
+
+            }
+
+            const boardID = document.getElementById(`${boardIdLocation[i][j]}`)
+            const chipTest = boardID.firstElementChild
+
+
+        }
+    }
+
+    console.log("turn: " + turn[0])
+    console.log("possibleMoveCheck: " + possibleMoveCheck)
+    console.log("possibleTakeOpponentCheck: "+ possibleTakeOpponentCheck)
+    console.log("Can the player move?: " +answer)
+    return answer
+
+}
+
+/**************** */
+/**************** */
+
+const areAnypiecesLeft=(turn)=>{
+
+    let answer = false
+
+    for(let i=0;i<8;i++){
+        for(let j=0;j<8;j++){
+
+            if(checkersBoardPlayer[i][j]===turn[0]){
+
+                answer=true
+
+
+            }
+        }
+    }
+
+    return true
+}
+
+/**************** */
+/**************** */
 
 let twoClickStore = [false,false]
 
@@ -157,12 +270,12 @@ storeCheck1 =()=>{
     
     if(movingChip.innerText==="K"){
 
-        possiblemoveK()
+        possiblemoveK(chipParentID)
         possibleMoveToTakeK(currentI, currentJ)
 
     } 
     else {
-        possiblemove()
+        possiblemove(chipParentID)
         possibleMoveToTake(currentI, currentJ)
 
     }
@@ -262,6 +375,7 @@ moveChip =()=>{
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
                 isChipKing(northIndex,eastIndex)
                 changeTurn(turn)
+                winCheck()
 
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
@@ -269,6 +383,7 @@ moveChip =()=>{
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
                 isChipKing(northIndex,eastIndex)
                 changeTurn(turn)
+                winCheck()
             }
 
 
@@ -291,6 +406,7 @@ moveChip =()=>{
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
                 isChipKing(northIndex,westIndex)
                 changeTurn(turn)
+                winCheck()
 
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
@@ -298,6 +414,7 @@ moveChip =()=>{
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
                 isChipKing(northIndex,westIndex)
                 changeTurn(turn)
+                winCheck()
             }
         
 
@@ -321,6 +438,7 @@ moveChip =()=>{
                 takeOpponent(opponentNorthIndex,opponentWestIndex)
                 isChipKing(northIndex2,westIndex2)
                 changeTurn(turn)
+                winCheck()
                 
 
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
@@ -330,6 +448,7 @@ moveChip =()=>{
                 takeOpponent(opponentNorthIndex,opponentWestIndex)
                 isChipKing(northIndex2,westIndex2)
                 changeTurn(turn)
+                winCheck()
                 
             }
         
@@ -353,6 +472,8 @@ moveChip =()=>{
                 takeOpponent(opponentNorthIndex,opponentEastIndex)
                 isChipKing(northIndex2,eastIndex2)
                 changeTurn(turn)
+                winCheck()
+
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
                 checkersBoardPlayer[northIndex2][eastIndex2]="2"
@@ -360,6 +481,8 @@ moveChip =()=>{
                 takeOpponent(opponentNorthIndex,opponentEastIndex)
                 isChipKing(northIndex2,eastIndex2)
                 changeTurn(turn)
+                winCheck()
+
             }
         
 
@@ -416,6 +539,7 @@ moveChipK =()=>{
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
                 isChipKing(northIndex,westIndex)
                 changeTurn(turn)
+                winCheck()
 
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
@@ -423,6 +547,7 @@ moveChipK =()=>{
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
                 isChipKing(northIndex,westIndex)
                 changeTurn(turn)
+                winCheck()
             }
 
 
@@ -446,6 +571,7 @@ moveChipK =()=>{
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
                 isChipKing(northIndex,eastIndex)
                 changeTurn(turn)
+                winCheck()
 
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
@@ -453,6 +579,7 @@ moveChipK =()=>{
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
                 isChipKing(northIndex,eastIndex)
                 changeTurn(turn)
+                winCheck()
             }
         
 
@@ -475,6 +602,7 @@ moveChipK =()=>{
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
                 isChipKing(southIndex,westIndex)
                 changeTurn(turn)
+                winCheck()
 
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
@@ -482,6 +610,7 @@ moveChipK =()=>{
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
                 isChipKing(southIndex,westIndex)
                 changeTurn(turn)
+                winCheck()
             }
         
 
@@ -504,6 +633,7 @@ moveChipK =()=>{
                 movingChip.style.backgroundColor = "rgb(145, 208, 229)"//light blue 
                 isChipKing(southIndex,eastIndex)
                 changeTurn(turn)
+                winCheck()
 
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
@@ -511,6 +641,7 @@ moveChipK =()=>{
                 movingChip.style.backgroundColor = "rgb(255, 198, 93)"//light orange 
                 isChipKing(southIndex,eastIndex)
                 changeTurn(turn)
+                winCheck()
             }
         
 
@@ -535,6 +666,7 @@ moveChipK =()=>{
                 takeOpponent(opponentNorthIndex,opponentWestIndex)
                 isChipKing(northIndex2,westIndex2)
                 changeTurn(turn)
+                winCheck()
                 
 
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
@@ -544,6 +676,7 @@ moveChipK =()=>{
                 takeOpponent(opponentNorthIndex,opponentWestIndex)
                 isChipKing(northIndex2,westIndex2)
                 changeTurn(turn)
+                winCheck()
                 
             }
         
@@ -568,6 +701,8 @@ moveChipK =()=>{
                 takeOpponent(opponentNorthIndex,opponentEastIndex)
                 isChipKing(northIndex2,eastIndex2)
                 changeTurn(turn)
+                winCheck()
+
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
                 checkersBoardPlayer[northIndex2][eastIndex2]="2"
@@ -575,6 +710,8 @@ moveChipK =()=>{
                 takeOpponent(opponentNorthIndex,opponentEastIndex)
                 isChipKing(northIndex2,eastIndex2)
                 changeTurn(turn)
+                winCheck()
+
             }
         
 
@@ -598,6 +735,8 @@ moveChipK =()=>{
                 takeOpponent(opponentSouthIndex,opponentWestIndex)
                 isChipKing(southIndex2,westIndex2)
                 changeTurn(turn)
+                winCheck()
+
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
                 checkersBoardPlayer[southIndex2][westIndex2]="2"
@@ -605,6 +744,7 @@ moveChipK =()=>{
                 takeOpponent(opponentSouthIndex,opponentWestIndex)
                 isChipKing(southIndex2,westIndex2)
                 changeTurn(turn)
+                winCheck()
             }
         
 
@@ -628,6 +768,8 @@ moveChipK =()=>{
                 takeOpponent(opponentSouthIndex,opponentEastIndex)
                 isChipKing(southIndex2,eastIndex2)
                 changeTurn(turn)
+                winCheck()
+
             } else if((turn[0]==="2" && chipClickID[(chipClickID.length)-1]==="2")) {
 
                 checkersBoardPlayer[southIndex2][eastIndex2]="2"
@@ -635,6 +777,8 @@ moveChipK =()=>{
                 takeOpponent(opponentSouthIndex,opponentEastIndex)
                 isChipKing(southIndex2,eastIndex2)
                 changeTurn(turn)
+                winCheck()
+
             }
         
 
@@ -712,7 +856,7 @@ let eastIndex2 = ''
 /**************** */
 /**************** */
 
-possibleMoveResetParams =()=>{
+const possibleMoveResetParams =()=>{
     possibleMoveCheck =false
     possibleTakeOpponentCheck =false
     possibleBoardMove1 = ''
@@ -744,7 +888,7 @@ possibleMoveResetParams =()=>{
 
 
 
-const possiblemove = () =>{
+const possiblemove = (chipParentID) =>{
 
     possibleMoveResetParams()
 
@@ -799,6 +943,11 @@ const possiblemove = () =>{
 
     }
 
+    console.log("possibleMoveCheck: " + possibleMoveCheck)
+    console.log("possibleTakeOpponentCheck: "+ possibleTakeOpponentCheck)
+
+
+
 }
 
 
@@ -809,7 +958,7 @@ const possiblemove = () =>{
 
 
 
-const possiblemoveK = () =>{
+const possiblemoveK = (chipParentID) =>{
 
     possibleMoveResetParams()
 
@@ -999,6 +1148,9 @@ const possibleMoveToTakeK = (currentI, currentJ ) =>{
     const i=currentI
     const j=currentJ 
 
+    console.log("currentI: "+currentI)
+    console.log("currentJ: "+currentJ)
+
 
     if(boardIdLocation[i][j] ===chipParentID){
 
@@ -1009,7 +1161,7 @@ const possibleMoveToTakeK = (currentI, currentJ ) =>{
         opponentEastIndex = j+1
 
         northIndex2 = i-2
-        southIndex2 = j-2
+        southIndex2 = i+2
         westIndex2 = j-2
         eastIndex2 = j+2
 
@@ -1200,7 +1352,14 @@ const boardClickInfo =(param) =>{
 
     boardClickID = param.target.id
     console.log("boardClickedID: " + boardClickID)
-    storeCheck2()
+    
+    if(twoClickStore[0] === true){
+    
+        storeCheck2()
+
+    }
+
+    //storeCheck2()
 
 }
 

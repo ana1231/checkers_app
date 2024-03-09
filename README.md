@@ -10,7 +10,7 @@ This is a two player game of checkers.
 - Orange chips represent black
 - Blue chips represent red
 - Green squares represent black squares
-- White squares represent red squates
+- White squares represent red squares
 
 Player 2 goes first, just as in traditional checkers.
 
@@ -19,11 +19,11 @@ Player 2 goes first, just as in traditional checkers.
 ### User Stories:
 
 As player 1\
-I want to play checkers with with player 2\
+I want to play checkers with player 2\
 So that I can try to win the game.
 
 As player 2\
-I want to play checkers with with player 1\
+I want to play checkers with player 1\
 So that I can try to win the game.
 
 ### Wireframes:
@@ -58,7 +58,7 @@ So that I can try to win the game.
       - `isChipKing(x_location_of_chip,y_location_of_chip)`
       - `changeTurn(turn)`
       - `winCheck()`
-    - For a Move to Take Oppenent:
+    - For a Move to Take Opponent:
       - `takeOpponent(opponent_x_locaiton,opponent_y_location)`
       - `isChipKing(x_location_of_chip,y_location_of_chip)`
       - `changeTurn(turn)`
@@ -77,7 +77,7 @@ Each square was given an ID in the HTML corresponding to the image below:
 Two arrays were used for tracking.
 
 One Array had the player locations:
-- *n* - can not move here
+- *n* - cannot move here
 - *0* - open space to move
 - *1* - represents player 1's location
 - *2* - represents player 2's location
@@ -90,7 +90,7 @@ The other Array held the IDs of the board.
 
 ### Possible Move Logic:
 
-Depending on the player and the kind of chip, all possible moves were checked and stored it move was possible.
+Depending on the player and the kind of chip, all possible moves were checked and stored if the move was possible.
 
 For Player 2, the 4 positions were evaluated:
 
@@ -108,7 +108,7 @@ For King Chips, regardless of Player, 8 positions were evaluated:
 
 ## Unsolved Problems
 
-### Cound not work on the following due to time constraints:
+### Could not work on the following due to time constraints:
 - Error Handling
 - Reset Button
 - Implement responsive design 

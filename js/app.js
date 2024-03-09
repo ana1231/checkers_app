@@ -5,6 +5,8 @@ window.onload = (event) =>{
 //SET UP//
 /**************** */
 
+/* TRACKS PLAYER LOCATION ON THE BOARD*/ 
+
 const checkersBoardPlayer = [
     ["n","1","n","1","n","1","n","1"],
     ["1","n","1","n","1","n","1","n"],
@@ -18,6 +20,8 @@ const checkersBoardPlayer = [
 
 /**************** */
 /**************** */
+
+/* BOARD IDs CORRESPONDING TO THE PLAYER LOCATIONS*/ 
 
 const boardIdLocation = [
     ["0", "1", "2", "3", "4", "5", "6", "7"],
@@ -45,56 +49,17 @@ for(i=1;i<13;i++){
 /**************** */
 
 
-class Player {
-
-    constructor(playerNumber){
-        this.chipSet = {}
-        this.playerNumber = playerNumber
-    }
-
-    setUpChipAttributes(){
-        for(i=0;i<chips.length; i++){
-
-            const chipString = `chip${chips[i]}p${this.playerNumber}`
-            const chipLocation = document.getElementById(chipString)
-
-
-            this.chipSet[`${chips[i]}`] = {
-                    "taken":false,
-                    "king":false,
-                    "chipID":chipString,
-                    "location":chipLocation
-                }
-        }
-            
-    }
-
-
-
-}
 
 
 /**************** */
 /**************** */
 
-
-
-const player1 = new Player(1)
-player1.setUpChipAttributes()
-
-console.log(player1)
-
-
-const player2 = new Player(2)
-player2.setUpChipAttributes()
-
-console.log(player2)
-
-/**************** */
-/**************** */
+/** Player 1 always starts first */
 
 let turn = ["2"]
 let opponent = ["1"] 
+
+/**Print whose Turn it is */
 
 const whoseTurn=(turn)=>{
 
@@ -108,6 +73,8 @@ const whoseTurn=(turn)=>{
 
 /**************** */
 /**************** */
+
+/* Time to change players */
 
 const changeTurn = (turn)=>{
     const header2Tag = document.querySelector('h2')
@@ -130,6 +97,11 @@ const changeTurn = (turn)=>{
 /**************** */
 /**************** */
 
+/** Check win logic
+ * (1) all chips were captured
+ * OR
+ * (2) the player can no longer move
+ */
 
 const winCheck = () =>{
 
@@ -161,6 +133,7 @@ const winCheck = () =>{
 /**************** */
 /**************** */
 
+/** Check (2) for win Logic */
 const canPlayerMove=(turn)=>{
 
     console.log("***********canPlayerMove")
@@ -225,6 +198,7 @@ const canPlayerMove=(turn)=>{
 /**************** */
 /**************** */
 
+/** Check (1) for win Logic */
 const areAnypiecesLeft=(turn)=>{
 
     let answer = false
@@ -247,9 +221,11 @@ const areAnypiecesLeft=(turn)=>{
 /**************** */
 /**************** */
 
+/** Tracks the [chip click, board click] */
 let twoClickStore = [false,false]
 
-storeCheck1 =()=>{
+/** Sets first click as true and calculates all possilbe moves */
+const storeCheck1 =()=>{
 
 
   
@@ -304,7 +280,8 @@ storeCheck1 =()=>{
 /**************** */
 /**************** */
 
-storeCheck2 =()=>{
+/**This moves the chip, calculates if chip is now K,  */
+const storeCheck2 =()=>{
 
     console.log("***********storeChecks2")
     whoseTurn(turn)
@@ -353,7 +330,22 @@ storeCheck2 =()=>{
 /**************** */
 /**************** */
 
-moveChip =()=>{
+/** The chip is only be moved if a possible move was selected
+ * If a possible move was selected, it will run the following for a simple move:
+ * -update chips location on board
+ * -check if it now a King
+ * -change turns
+ * -check win condition
+ * 
+ * If it is a move to take a chip
+ * -run take opponent function
+ * -update chips location on board
+ * -check if it now a King
+ * -change turns
+ * -check win condition
+ */
+
+const moveChip =()=>{
 
     console.log("***********moveChip")
     const movingChip = document.getElementById(`${chipClickID}`)
@@ -517,7 +509,24 @@ moveChip =()=>{
 /**************** */
 /**************** */
 
-moveChipK =()=>{
+/** Similar to above, but now for the King logic
+ * The chip is only be moved if a possible move was selected
+ * If a possible move was selected, it will run the following for a simple move:
+ * -update chips location on board
+ * -check if it now a King
+ * -change turns
+ * -check win condition
+ * 
+ * If it is a move to take a chip
+ * -run take opponent function
+ * -update chips location on board
+ * -check if it now a King
+ * -change turns
+ * -check win condition
+ */
+
+
+const moveChipK =()=>{
 
     console.log("***********moveChipK")
     const movingChip = document.getElementById(`${chipClickID}`)
@@ -814,8 +823,9 @@ moveChipK =()=>{
 /**************** */
 /**************** */
 
+/** Print Board */
 
-printBoardpieces=()=>{
+const printBoardpieces=()=>{
 
     console.log("***********printBoardpieces")
     for(let i= 0; i <8 ;i++){
@@ -856,6 +866,8 @@ let eastIndex2 = ''
 /**************** */
 /**************** */
 
+/**Resets the variables going into the possible move checks */
+
 const possibleMoveResetParams =()=>{
     possibleMoveCheck =false
     possibleTakeOpponentCheck =false
@@ -886,7 +898,7 @@ const possibleMoveResetParams =()=>{
 /**************** */
 /**************** */
 
-
+/**Checks 2 possible moves */
 
 const possiblemove = (chipParentID) =>{
 
@@ -956,7 +968,7 @@ const possiblemove = (chipParentID) =>{
 /**************** */
 /**************** */
 
-
+/**Checks 4 possible moves */
 
 const possiblemoveK = (chipParentID) =>{
 
@@ -1060,7 +1072,7 @@ const possiblemoveK = (chipParentID) =>{
 /**************** */
 /**************** */
 
-
+/** Checks 2 possible take moves*/
 
 const possibleMoveToTake = (currentI, currentJ,chipParentID ) =>{
 
@@ -1138,7 +1150,7 @@ const possibleMoveToTake = (currentI, currentJ,chipParentID ) =>{
 /**************** */
 /**************** */
 
-
+/**Checks 4 possible take moves */
 
 const possibleMoveToTakeK = (currentI, currentJ,chipParentID ) =>{
 
@@ -1277,6 +1289,7 @@ const takeOpponent=(x,y)=>{
 /**************** */
 /**************** */
 
+/** checks if chip made it to the end and is now a King */
 const isChipKing =(x,y)=>{
     
     console.log("***********isChipKing")
@@ -1369,11 +1382,23 @@ const boardClickInfo =(param) =>{
 //ADD EVENT LISTENER
 /**************** */
 
-for( let i=0; i<64; i++){
 
-    document.getElementById(`${i}`).addEventListener('click', boardClickInfo)
+for(let i=0;i<8;i++){
+    for(let j=0;j<8;j++){
 
+        if(checkersBoardPlayer[i][j]!=="n"){
+
+            document.getElementById(`${boardIdLocation[i][j]}`).addEventListener('click', boardClickInfo)
+        }
+    }
 }
+
+
+// for( let i=0; i<64; i++){
+
+//     document.getElementById(`${i}`).addEventListener('click', boardClickInfo)
+
+// }
 
 for (let i=1; i<3; i++){
 
@@ -1392,42 +1417,9 @@ for (let i=1; i<3; i++){
 
 /**************** */
 /**************** */
-
-/*
-Start Game
-
-Player 1 turn
-
-Player 1 clicks chip
-
-Player 1 clicks new location
-
-Chip moves to new location
-
-*/
-
-
-
-//    console.log(document.getElementById('chip2p2'))
-//     document.getElementById('programming').addEventListener('click', ()=>{runJoke(apiUrl.programming)})
-//
-//site Help: https://stackoverflow.com/questions/9012537/how-to-get-the-element-clicked-for-the-whole-document
-//    // window.onclick = (param) => {
-    //     console.log(param.target); // to get the element
-    //     clickID = param.target.id
-    //     console.log(clickID)
-    //     parentID = param.target.parentNode.id
-    //     console.log(parentID)
-
-    //     //console.log(param.target.tagName);  // to get the element tag name alone
-    // } 
-
-
-
-
-
-
-
+// END
+/**************** */
+/**************** */
 
 
 }

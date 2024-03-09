@@ -59,6 +59,9 @@ tr:nth-last-of-type(even) .cell:nth-of-type(even){
     border: 1px solid rgb(69, 185, 224);
     cursor: pointer;
     text-align: center;
+    line-height: 60px;
+    font-size:  20px;
+    font-weight: normal;
     
 
 }
@@ -76,6 +79,10 @@ tr:nth-last-of-type(even) .cell:nth-of-type(even){
     border: 1px solid rgb(255, 153, 0);
     cursor: pointer;
     text-align: center;
+    line-height: 60px;
+    font-size:  20px;
+    font-weight: normal;
+
     
 
 

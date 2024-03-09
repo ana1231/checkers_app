@@ -1336,6 +1336,7 @@ const isChipKing =(x,y)=>{
 /* 
 Site Help: https://rajatamil.medium.com/get-id-of-clicked-element-in-javascript-46f4f688b890
 https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Examples#example_5_event_propagation
+https://web.stanford.edu/class/archive/cs/cs193x/cs193x.1176/lectures/10/lecture10.pdf
 */
 
 /**************** */
